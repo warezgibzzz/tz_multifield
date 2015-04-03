@@ -5,15 +5,15 @@ use Bitrix\Main\Application;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ModuleManager;
-use Maycat\D7dull\ExampleTable;
+use Bex\D7dull\ExampleTable;
 
 Loc::loadMessages(__FILE__);
 
-if (class_exists('maycat_d7dull')) {
+if (class_exists('bex_d7dull')) {
     return;
 }
 
-class maycat_d7dull extends CModule
+class bex_d7dull extends CModule
 {
     /** @var string */
     public $MODULE_ID;
@@ -41,14 +41,14 @@ class maycat_d7dull extends CModule
 
     public function __construct()
     {
-        $this->MODULE_ID = 'maycat.d7dull';
-        $this->MODULE_VERSION = '0.0.1';
-        $this->MODULE_VERSION_DATE = '2014-07-17 16:23:14';
+        $this->MODULE_ID = 'bex.d7dull';
+        $this->MODULE_VERSION = '0.1.0';
+        $this->MODULE_VERSION_DATE = '2015-04-03 16:23:14';
         $this->MODULE_NAME = Loc::getMessage('MODULE_NAME');
         $this->MODULE_DESCRIPTION = Loc::getMessage('MODULE_DESCRIPTION');
         $this->MODULE_GROUP_RIGHTS = 'N';
-        $this->PARTNER_NAME = "Maycat";
-        $this->PARTNER_URI = "http://www.may-cat.ru";
+        $this->PARTNER_NAME = "Эксперты Битрикс";
+        $this->PARTNER_URI = "http://bitrix.expert";
     }
 
     public function doInstall()

@@ -1,6 +1,6 @@
 <?php
 defined('B_PROLOG_INCLUDED') and (B_PROLOG_INCLUDED === true) or die();
-defined('ADMIN_MODULE_NAME') or define('ADMIN_MODULE_NAME', 'maycat.d7dull');
+defined('ADMIN_MODULE_NAME') or define('ADMIN_MODULE_NAME', 'bex.d7dull');
 
 use Bitrix\Main\Application;
 use Bitrix\Main\Config\Option;

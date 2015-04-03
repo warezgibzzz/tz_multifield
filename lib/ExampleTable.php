@@ -1,5 +1,5 @@
 <?php
-namespace Maycat\D7dull;
+namespace Bex\D7dull;
 
 defined('B_PROLOG_INCLUDED') and (B_PROLOG_INCLUDED === true) or die();
 
