@@ -14,5 +14,11 @@
       "name": "Цупко Игорь (may_cat)",
       "email": "maicatus@gmail.com"
     }
-  ]
+  ],
+  "extra": {
+    "installer-name": "bex.d7dull"
+  },
+  "require": {
+    "composer/installers": "*"
+  }
 }
