@@ -19,6 +19,6 @@
     "installer-name": "bex.d7dull"
   },
   "require": {
-    "composer/installers": "*"
+    "composer/installers": ">=1.0.22 <2.0"
   }
 }

@@ -1,7 +1,6 @@
 <?php
-namespace Bex\D7dull;
 
-defined('B_PROLOG_INCLUDED') and (B_PROLOG_INCLUDED === true) or die();
+namespace Bex\D7dull;
 
 use Bitrix\Main\Entity\DataManager;
 use Bitrix\Main\Entity\IntegerField;
@@ -24,13 +23,13 @@ class ExampleTable extends DataManager
             new IntegerField('ID', array(
                 'autocomplete' => true,
                 'primary' => true,
-                'title' => Loc::getMessage('ID'),
+                'title' => Loc::getMessage('BEX_D7DULL_ID'),
             )),
             new StringField('NAME', array(
                 'required' => true,
-                'title' => Loc::getMessage('NAME'),
+                'title' => Loc::getMessage('BEX_D7DULL_NAME'),
                 'default_value' => function () {
-                    return Loc::getMessage('NAME_DEFAULT_VALUE');
+                    return Loc::getMessage('BEX_D7DULL_NAME_DEFAULT_VALUE');
                 },
                 'validation' => function () {
                     return array(
@@ -38,9 +37,9 @@ class ExampleTable extends DataManager
                     );
                 },
             )),
-            new StringField('IMAGE_SET', [
+            new StringField('IMAGE_SET', array(
                 'required' => false,
-                'title' => Loc::getMessage('IMAGE_SET'),
+                'title' => Loc::getMessage('BEX_D7DULL_IMAGE_SET'),
                 'fetch_data_modification' => function () {
                     return array(
                         function ($value) {
@@ -61,7 +60,7 @@ class ExampleTable extends DataManager
                         },
                     );
                 },
-            ]),
+            )),
         );
     }
 }

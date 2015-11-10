@@ -1,5 +1,4 @@
 <?php
-defined('B_PROLOG_INCLUDED') and (B_PROLOG_INCLUDED === true) or die();
 
 use Bitrix\Main\Application;
 use Bitrix\Main\Loader;
@@ -9,46 +8,26 @@ use Bex\D7dull\ExampleTable;
 
 Loc::loadMessages(__FILE__);
 
-if (class_exists('bex_d7dull')) {
-    return;
-}
-
 class bex_d7dull extends CModule
 {
-    /** @var string */
-    public $MODULE_ID;
-
-    /** @var string */
-    public $MODULE_VERSION;
-
-    /** @var string */
-    public $MODULE_VERSION_DATE;
-
-    /** @var string */
-    public $MODULE_NAME;
-
-    /** @var string */
-    public $MODULE_DESCRIPTION;
-
-    /** @var string */
-    public $MODULE_GROUP_RIGHTS;
-
-    /** @var string */
-    public $PARTNER_NAME;
-
-    /** @var string */
-    public $PARTNER_URI;
-
     public function __construct()
     {
+        $arModuleVersion = array();
+        
+        include __DIR__ . '/version.php';
+
+        if (is_array($arModuleVersion) && array_key_exists('VERSION', $arModuleVersion))
+        {
+            $this->MODULE_VERSION = $arModuleVersion['VERSION'];
+            $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
+        }
+        
         $this->MODULE_ID = 'bex.d7dull';
-        $this->MODULE_VERSION = '0.1.0';
-        $this->MODULE_VERSION_DATE = '2015-04-03 16:23:14';
-        $this->MODULE_NAME = Loc::getMessage('MODULE_NAME');
-        $this->MODULE_DESCRIPTION = Loc::getMessage('MODULE_DESCRIPTION');
+        $this->MODULE_NAME = Loc::getMessage('BEX_D7DULL_MODULE_NAME');
+        $this->MODULE_DESCRIPTION = Loc::getMessage('BEX_D7DULL_MODULE_DESCRIPTION');
         $this->MODULE_GROUP_RIGHTS = 'N';
-        $this->PARTNER_NAME = "Эксперты Битрикс";
-        $this->PARTNER_URI = "http://bitrix.expert";
+        $this->PARTNER_NAME = Loc::getMessage('BEX_D7DULL_MODULE_PARTNER_NAME');
+        $this->PARTNER_URI = 'http://bitrix.expert';
     }
 
     public function doInstall()
@@ -65,14 +44,16 @@ class bex_d7dull extends CModule
 
     public function installDB()
     {
-        if (Loader::includeModule($this->MODULE_ID)) {
+        if (Loader::includeModule($this->MODULE_ID))
+        {
             ExampleTable::getEntity()->createDbTable();
         }
     }
 
     public function uninstallDB()
     {
-        if (Loader::includeModule($this->MODULE_ID)) {
+        if (Loader::includeModule($this->MODULE_ID))
+        {
             $connection = Application::getInstance()->getConnection();
             $connection->dropTable(ExampleTable::getTableName());
         }
