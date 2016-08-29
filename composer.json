@@ -1,22 +1,17 @@
 {
-  "name": "bitrix-expert/bex.d7dull",
-  "description": "Заготовка модуля на d7, на основе которой можно разрабатывать свои решения",
-  "keywords": ["bitrix", "Битрикс", "d7", "модуль"],
-  "type": "bitrix-module",
+  "name": "warezgibzzz/gibz.tz-multifield",
+  "description": "for tz",
+  "keywords": ["bitrix", "d7"],
+  "type": "bitrix-d7-module",
   "license": "MIT",
-  "support": {
-    "www": "http://bitrix.expert",
-    "skype": "may_cat_ghost",
-    "source": "http://github.com/bitrix-expert/bex.d7dull/"
-  },
   "authors": [
     {
-      "name": "Цупко Игорь (may_cat)",
-      "email": "maicatus@gmail.com"
+      "name": "Pavel P. Poronko",
+      "email": "me@gibzzz.tk"
     }
   ],
   "extra": {
-    "installer-name": "bex.d7dull"
+    "installer-name": "gibz.tz-multifield"
   },
   "require": {
     "composer/installers": ">=1.0.22 <2.0"
