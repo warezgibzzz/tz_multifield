@@ -25,7 +25,6 @@ class Warezgibzzz_Tz_Multifield extends CModule
         $this->MODULE_DESCRIPTION = Loc::getMessage('WAREZGIBZZZ_TZ_MULTIFIELD_MODULE_DESCRIPTION');
         $this->MODULE_GROUP_RIGHTS = 'N';
         $this->PARTNER_NAME = Loc::getMessage('WAREZGIBZZZ_TZ_MULTIFIELD_MODULE_PARTNER_NAME');
-        $this->PARTNER_URI = 'http://bitrix.expert';
     }
 
     public function doInstall()
