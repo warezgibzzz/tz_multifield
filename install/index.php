@@ -3,6 +3,7 @@
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ModuleManager;
+use CIBlockPropertyWarezgibzzzTzMultiField;
 
 Loc::loadMessages(__FILE__);
 
