@@ -1,3 +1,3 @@
-# d7dull
+# tz-multifield
 
-Модуль-заготовка для 1С-Битрикс. Использует подход ядра D7.
+Module with new iblock field type
