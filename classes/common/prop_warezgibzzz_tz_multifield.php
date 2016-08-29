@@ -1,15 +1,15 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: gibz
+ * User: warezgibzzz
  * Date: 30.08.16
  * Time: 1:17
  */
 
 /**
- * Class CIBlockPropertyGibzTzMultiField
+ * Class CIBlockPropertyWarezgibzzzTzMultiField
  */
-class CIBlockPropertyGibzTzMultiField
+class CIBlockPropertyWarezgibzzzTzMultiField
 {
     /**
      * Metadata for custom IBlock property.
@@ -20,7 +20,7 @@ class CIBlockPropertyGibzTzMultiField
     {
         return array(
             "PROPERTY_TYPE" => "S",
-            "USER_TYPE" => "GibzTzMultiField",
+            "USER_TYPE" => "WarezgibzzzTzMultiField",
             "DESCRIPTION" => "Sortable MultiField",
             //optional handlers
             "CheckFields" => array(__CLASS__, "CheckFields"),

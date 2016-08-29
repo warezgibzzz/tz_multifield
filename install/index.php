@@ -6,7 +6,7 @@ use Bitrix\Main\ModuleManager;
 
 Loc::loadMessages(__FILE__);
 
-class Gibz_Tz_Multifield extends CModule
+class Warezgibzzz_Tz_Multifield extends CModule
 {
     public function __construct()
     {
@@ -20,11 +20,11 @@ class Gibz_Tz_Multifield extends CModule
             $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
         }
         
-        $this->MODULE_ID = 'gibz.tz_multifield';
-        $this->MODULE_NAME = Loc::getMessage('GIBZ_TZ_MULTIFIELD_MODULE_NAME');
-        $this->MODULE_DESCRIPTION = Loc::getMessage('GIBZ_TZ_MULTIFIELD_MODULE_DESCRIPTION');
+        $this->MODULE_ID = 'warezgibzzz.tz_multifield';
+        $this->MODULE_NAME = Loc::getMessage('WAREZGIBZZZ_TZ_MULTIFIELD_MODULE_NAME');
+        $this->MODULE_DESCRIPTION = Loc::getMessage('WAREZGIBZZZ_TZ_MULTIFIELD_MODULE_DESCRIPTION');
         $this->MODULE_GROUP_RIGHTS = 'N';
-        $this->PARTNER_NAME = Loc::getMessage('GIBZ_TZ_MULTIFIELD_MODULE_PARTNER_NAME');
+        $this->PARTNER_NAME = Loc::getMessage('WAREZGIBZZZ_TZ_MULTIFIELD_MODULE_PARTNER_NAME');
         $this->PARTNER_URI = 'http://bitrix.expert';
     }
 

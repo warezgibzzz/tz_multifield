@@ -1,5 +1,5 @@
 {
-  "name": "warezgibzzz/gibz.tz_multifield",
+  "name": "warezgibzzz/tz_multifield",
   "description": "for tz",
   "keywords": ["bitrix", "d7"],
   "type": "bitrix-d7-module",
@@ -11,7 +11,7 @@
     }
   ],
   "extra": {
-    "installer-name": "gibz.tz_multifield"
+    "installer-name": "tz_multifield"
   },
   "require": {
     "composer/installers": "^1.1"
