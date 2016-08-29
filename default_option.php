@@ -1,5 +1,10 @@
 <?php
 
-$bex_d7dull_default_option = array(
-    'max_image_size' => '500',
+$gibz_tz_multifield_default_option = array(
+    'show_field_count' => 3,
+    'show_ordering' => false,
+    'dimensions' => array(
+        'width' => 5,
+        'height' => 3
+    )
 );

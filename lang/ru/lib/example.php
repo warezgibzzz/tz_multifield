@@ -1,6 +1,6 @@
 <?php
 
-$MESS['BEX_D7DULL_ID'] = 'ID';
-$MESS['BEX_D7DULL_NAME'] = 'Название';
-$MESS['BEX_D7DULL_NAME_DEFAULT_VALUE'] = 'Безымянный элемент';
-$MESS['BEX_D7DULL_IMAGE_SET'] = 'Изображения';
+$MESS['GIBZ_TZ_MULTIFIELD_ID'] = 'ID';
+$MESS['GIBZ_TZ_MULTIFIELD_NAME'] = 'Название';
+$MESS['GIBZ_TZ_MULTIFIELD_NAME_DEFAULT_VALUE'] = 'Безымянный элемент';
+$MESS['GIBZ_TZ_MULTIFIELD_IMAGE_SET'] = 'Изображения';

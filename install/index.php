@@ -1,14 +1,12 @@
 <?php
 
-use Bitrix\Main\Application;
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ModuleManager;
-use Bex\D7dull\ExampleTable;
 
 Loc::loadMessages(__FILE__);
 
-class bex_d7dull extends CModule
+class Gibz_Tz_Multifield extends CModule
 {
     public function __construct()
     {
@@ -22,11 +20,11 @@ class bex_d7dull extends CModule
             $this->MODULE_VERSION_DATE = $arModuleVersion['VERSION_DATE'];
         }
         
-        $this->MODULE_ID = 'bex.d7dull';
-        $this->MODULE_NAME = Loc::getMessage('BEX_D7DULL_MODULE_NAME');
-        $this->MODULE_DESCRIPTION = Loc::getMessage('BEX_D7DULL_MODULE_DESCRIPTION');
+        $this->MODULE_ID = 'gibz.tz_multifield';
+        $this->MODULE_NAME = Loc::getMessage('GIBZ_TZ_MULTIFIELD_MODULE_NAME');
+        $this->MODULE_DESCRIPTION = Loc::getMessage('GIBZ_TZ_MULTIFIELD_MODULE_DESCRIPTION');
         $this->MODULE_GROUP_RIGHTS = 'N';
-        $this->PARTNER_NAME = Loc::getMessage('BEX_D7DULL_MODULE_PARTNER_NAME');
+        $this->PARTNER_NAME = Loc::getMessage('GIBZ_TZ_MULTIFIELD_MODULE_PARTNER_NAME');
         $this->PARTNER_URI = 'http://bitrix.expert';
     }
 
@@ -39,14 +37,14 @@ class bex_d7dull extends CModule
     public function doUninstall()
     {
         $this->uninstallDB();
-        ModuleManager::unregisterModule($this->MODULE_ID);
+        ModuleManager::unRegisterModule($this->MODULE_ID);
     }
 
     public function installDB()
     {
         if (Loader::includeModule($this->MODULE_ID))
         {
-            ExampleTable::getEntity()->createDbTable();
+
         }
     }
 
@@ -54,8 +52,7 @@ class bex_d7dull extends CModule
     {
         if (Loader::includeModule($this->MODULE_ID))
         {
-            $connection = Application::getInstance()->getConnection();
-            $connection->dropTable(ExampleTable::getTableName());
+
         }
     }
 }
