@@ -1,5 +1,5 @@
 <?php
 
-$MESS['WAREZGIBZZZ_TZ_MULTIFIELD_MODULE_NAME'] = 'D7-образец';
-$MESS['WAREZGIBZZZ_TZ_MULTIFIELD_MODULE_DESCRIPTION'] = 'Модуль-болванка, написанный на новом ядре Битрикса.';
-$MESS['WAREZGIBZZZ_TZ_MULTIFIELD_MODULE_PARTNER_NAME'] = 'Битрикс-эксперты';
+$MESS['WAREZGIBZZZ_TZ_MULTIFIELD_MODULE_NAME'] = 'Sortable MultiField';
+$MESS['WAREZGIBZZZ_TZ_MULTIFIELD_MODULE_DESCRIPTION'] = 'Module that provides new IBlock sortable multifield type.';
+$MESS['WAREZGIBZZZ_TZ_MULTIFIELD_MODULE_PARTNER_NAME'] = 'Pavel P. Poronko';

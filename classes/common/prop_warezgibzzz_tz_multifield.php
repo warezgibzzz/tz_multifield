@@ -5,6 +5,9 @@
  * Date: 30.08.16
  * Time: 1:17
  */
+use Bitrix\Main\Localization\Loc;
+
+Loc::loadMessages(__FILE__);
 
 /**
  * Class CIBlockPropertyWarezgibzzzTzMultiField
