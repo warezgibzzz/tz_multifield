@@ -106,21 +106,21 @@ class CIBlockPropertyWarezgibzzzTzMultiField
 
     public function GetPropertyFieldHtml()
     {
-
+        // @TODO: implement GetPropertyFieldHtml()
     }
 
     public function GetAdminListViewHTML()
     {
-
+        // @TODO: implement GetAdminListViewHTML()
     }
 
     public function GetPublicViewHTML()
     {
-
+        // @TODO: implement GetPublicViewHTML()
     }
 
     public function GetPublicEditHTML()
     {
-
+        // @TODO: implement GetPublicEditHTML()
     }
 }

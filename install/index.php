@@ -43,7 +43,7 @@ class Warezgibzzz_Tz_Multifield extends CModule
     {
         if (Loader::includeModule($this->MODULE_ID))
         {
-
+            RegisterModuleDependences('iblock', 'OnIBlockPropertyBuildList', $this->MODULE_ID, 'CIBlockPropertyWarezgibzzzTzMultiField', 'GetUserTypeDescription');
         }
     }
 
@@ -51,7 +51,7 @@ class Warezgibzzz_Tz_Multifield extends CModule
     {
         if (Loader::includeModule($this->MODULE_ID))
         {
-
+            UnRegisterModuleDependences('iblock', 'OnIBlockPropertyBuildList', $this->MODULE_ID, 'CIBlockPropertyWarezgibzzzTzMultiField', 'GetUserTypeDescription');
         }
     }
 }
