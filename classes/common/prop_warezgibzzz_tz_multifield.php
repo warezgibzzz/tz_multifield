@@ -26,14 +26,41 @@ class CIBlockPropertyWarezgibzzzTzMultiField
             "USER_TYPE" => "WarezgibzzzTzMultiField",
             "DESCRIPTION" => "Sortable MultiField",
             //optional handlers
+
+            "PrepareSettings" => array(__CLASS__, "PrepareSettings"),
             "CheckFields" => array(__CLASS__, "CheckFields"),
             "GetLength" => array(__CLASS__, "GetLength"),
             "ConvertToDB" => array(__CLASS__, "ConvertToDB"),
             "ConvertFromDB" => array(__CLASS__, "ConvertFromDB"),
+
 //            "GetPropertyFieldHtml" => array(__CLASS__, "GetPropertyFieldHtml"),
 //            "GetAdminListViewHTML" => array(__CLASS__, "GetAdminListViewHTML"),
 //            "GetPublicViewHTML" => array(__CLASS__, "GetPublicViewHTML"),
 //            "GetPublicEditHTML" => array(__CLASS__, "GetPublicEditHTML"),
+        );
+    }
+
+    public function PrepareSettings($arFields)
+    {
+        /**
+         * Fields width, show order setting and initial field count in property settings.
+         */
+        $width = intval($arFields['USER_TYPE_SETTINGS']['WIDTH']);
+        $showOrder = boolval($arFields['USER_TYPE_SETTINGS']['SHOW_ORDER']);
+        $initialFieldCount = intval($arFields['USER_TYPE_SETTINGS']['INITIAL_FIELD_COUNT']);
+
+        if ($width <= 0) {
+            $width = 3;
+        }
+
+        if ($initialFieldCount <= 0) {
+            $initialFieldCount = 3;
+        }
+
+        return array(
+            "WIDTH" => $width,
+            "SHOW_ORDER" => $showOrder,
+            "INITIAL_FIELD_COUNT" => $initialFieldCount
         );
     }
 
