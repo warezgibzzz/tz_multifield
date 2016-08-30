@@ -14,6 +14,8 @@ Loc::loadMessages(__FILE__);
  */
 class CIBlockPropertyWarezgibzzzTzMultiField
 {
+    const USER_TYPE_SETTINGS_CODE = 'USER_TYPE_SETTINGS';
+
     /**
      * Metadata for custom IBlock property.
      *
@@ -42,20 +44,20 @@ class CIBlockPropertyWarezgibzzzTzMultiField
 
     public function PrepareSettings($arFields)
     {
-        /**
-         * Fields width, show order setting and initial field count in property settings.
-         */
-        $showOrder = boolval($arFields['USER_TYPE_SETTINGS']['SHOW_ORDER']);
-        $initialFieldCount = intval($arFields['USER_TYPE_SETTINGS']['INITIAL_FIELD_COUNT']);
-
-        if ($initialFieldCount <= 0) {
-            $initialFieldCount = 3;
-        }
-
-        return array(
-            "SHOW_ORDER" => $showOrder,
-            "INITIAL_FIELD_COUNT" => $initialFieldCount
+        $values = array(
+            'SHOW_ORDER' => false,
+            'INITIAL_FIELD_COUNT' => 10
         );
+        $userTypeSettingsKeyName = self::USER_TYPE_SETTINGS_CODE;
+        if (is_array($arFields[$userTypeSettingsKeyName])) {
+            if (isset($arFields[$userTypeSettingsKeyName]['SHOW_ORDER'])) {
+                $values['SHOW_ORDER'] = boolval($arFields[$userTypeSettingsKeyName]['SHOW_ORDER']);
+            }
+            if (isset($arFields[$userTypeSettingsKeyName]['INITIAL_FIELD_COUNT'])) {
+                $values['INITIAL_FIELD_COUNT'] = intval($arFields[$userTypeSettingsKeyName]['INITIAL_FIELD_COUNT']);
+            }
+        }
+        return $values;
     }
 
     /**
@@ -142,13 +144,12 @@ class CIBlockPropertyWarezgibzzzTzMultiField
                 "MULTIPLE_CNT"
             ), //will hide the field
             "SET" => array(
-                "FILTRABLE" => "N",
-                $strHTMLControlName["NAME"] => $arProperty["USER_TYPE_SETTINGS"]
+                "FILTRABLE" => "N", "SEARCHABLE" => "N"
             ),
             "USER_TYPE_SETTINGS_TITLE" => "Sortable MultiField settings"
         );
 
-        if ($arProperty["USER_TYPE_SETTINGS"]["SHOW_ORDERING"] == 'on') {
+        if ($arProperty[self::USER_TYPE_SETTINGS_CODE]["SHOW_ORDER"] == 'on') {
             $checkBoxValue = 'checked';
         } else {
             $checkBoxValue = '';
@@ -156,12 +157,19 @@ class CIBlockPropertyWarezgibzzzTzMultiField
 
         return '
         <tr>
-        <td>Initial field count:</td>
-        <td><input type="text" size="50" value="' . $arProperty["USER_TYPE_SETTINGS"]["INITIAL_FIELD_COUNT"] . '"  name="' . $strHTMLControlName["NAME"] . '[INITIAL_FIELD_COUNT]"></td>
+            <td>Initial field count:</td>
+            <td>
+                <input type="text" size="50" 
+                       name="' . $strHTMLControlName["NAME"] . '[INITIAL_FIELD_COUNT]"
+                       value="' . $arProperty[self::USER_TYPE_SETTINGS_CODE]['INITIAL_FIELD_COUNT'] . '"
+                >
+            </td>
         </tr>
         <tr>
-        <td>Show ordering:</td>
-        <td><input type="checkbox" name="' . $strHTMLControlName["NAME"] . '[SHOW_ORDERING]" ' . $checkBoxValue . ' ></td>
+            <td>Show ordering:</td>
+            <td>
+                <input type="checkbox" name="' . $strHTMLControlName["NAME"] . '[SHOW_ORDER]" ' . $checkBoxValue . '/>
+            </td>
         </tr>
         ';
     }
@@ -172,6 +180,9 @@ class CIBlockPropertyWarezgibzzzTzMultiField
             echo __METHOD__;
             self::dump([$arProperty, $value, $strHTMLControlName]);
         }
+
+
+
         return '123';
         // @TODO: implement GetPropertyFieldHtml()
     }
@@ -300,10 +311,17 @@ class CIBlockPropertyWarezgibzzzTzMultiField
      *
      * @param array $value
      */
-    private static function dump($value)
+    private static function dump($value, $toFile = false)
     {
-        echo '<pre>';
-        var_dump($value);
-        echo '</pre>';
+        if (!$toFile) {
+            echo '<pre>';
+            var_dump($_SERVER['DOCUMENT_ROOT'], $value);
+            echo '</pre>';
+            return;
+        }
+
+        $handle = fopen($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'dump.txt', 'a+');
+        fwrite($handle, print_r($value, true));
+        fclose($handle);
     }
 }
