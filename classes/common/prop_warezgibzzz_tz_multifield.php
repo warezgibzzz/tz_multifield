@@ -124,7 +124,17 @@ class CIBlockPropertyWarezgibzzzTzMultiField
             $value['VALUE'] = json_decode($value['VALUE'], true);
         }
 
-        return $value;
+        if (is_array($value['VALUE'])) {
+            $sorted = self::sortByCallable($value['VALUE'], function ($item) {
+                return intval($item['ORDER']);
+            });
+
+            $value['VALUE'] = $sorted;
+
+            return $value;
+        }
+
+        return $value['VALUE'];
     }
 
     function GetSettingsHTML($arProperty, $strHTMLControlName, &$arPropertyFields)
@@ -185,7 +195,18 @@ class CIBlockPropertyWarezgibzzzTzMultiField
 
     public function GetPropertyFieldHtml($arProperty, $value, $strHTMLControlName)
     {
-        //self::dump([$arProperty, $value, is_array($value['VALUE']), $strHTMLControlName]);
+        $orderFieldType = 'hidden';
+        $valueFieldType = 'input';
+
+        if ($arProperty['USER_TYPE_SETTINGS']['SHOW_ORDER'] == true) {
+            $orderFieldType = 'text';
+        }
+
+        if (intval($arProperty['ROW_COUNT']) > 1) {
+            $valueFieldType = 'textarea';
+        }
+
+        $fieldPrototype = "<tr><td><" . $valueFieldType . " type=\"text\" size='" . $arProperty['COL_COUNT'] . "' rows='".$arProperty['ROW_COUNT']."' cols='".$arProperty['COL_COUNT']."' data-type='mfieldval' ></" . $valueFieldType . "><input type=\"" . $orderFieldType . "\"  data-type='mfieldorder'  size='10'/></td></tr>";
 
         /**
          * JS injection
@@ -193,20 +214,30 @@ class CIBlockPropertyWarezgibzzzTzMultiField
         $html = self::getPropertyFieldJs();
 
         /** HTML form */
-        $html .= '<table width="100%" id="tbmf'.md5($arProperty['NAME']).'">';
+        $html .=
+            '<table 
+                cellpadding="0"
+                cellspacing="0"
+                border="0"
+                width="100%" 
+                class="nopadding" 
+                id="tbmf' . md5($arProperty['NAME']) . '"
+                data-name="' . $strHTMLControlName['VALUE'] . '"
+                data-prototype="' . htmlentities($fieldPrototype) . '"
+            >';
 
         if (is_array($value['VALUE'])) {
             foreach ($value['VALUE'] as $index => $item) {
-                self::getAdminFieldHTML($index, $item, $arProperty['USER_TYPE_SETTINGS']);
+                $html .= self::getAdminFieldHTML($index, $item, $arProperty, $strHTMLControlName);
             }
         } else {
             for ($i = 0; $i < $arProperty['USER_TYPE_SETTINGS']['INITIAL_FIELD_COUNT']; $i++) {
-                self::getAdminFieldHTML($i, '', $arProperty['USER_TYPE_SETTINGS']);
+                $html .= self::getAdminFieldHTML($i, '', $arProperty, $strHTMLControlName);
             }
         }
 
         $html .= '</table>';
-        $html .= '<input type="button" value="Add new field" onclick="addNewMultifieldRow($(\'#tbmf'.md5($arProperty['NAME']).'\'))"/>';
+        $html .= '<input type="button" value="Add new field" onclick="addNewMultifieldRow($(\'#tbmf' . md5($arProperty['NAME']) . '\'))"/>';
 
         return $html;
     }
@@ -222,7 +253,7 @@ class CIBlockPropertyWarezgibzzzTzMultiField
     }
 
     /**
-     * JS for field
+     * JS for dynamic field addition
      *
      * @return string
      */
@@ -232,19 +263,60 @@ class CIBlockPropertyWarezgibzzzTzMultiField
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
         <script type='text/javascript'>
             function addNewMultifieldRow(selector){
-                console.log(selector);
+                var row = $(selector.data('prototype'));
+                row.find('input,textarea').each(function(i, el){
+                    if ($(el).data('type') === 'mfieldval') {
+                        $(el).attr('name', selector.data('name')+'[' + selector.find('tr').length + ']' + '[VALUE]');
+                    }
+                    if ($(el).data('type') === 'mfieldorder') {
+                        $(el).attr('name', selector.data('name')+'[' + selector.find('tr').length + ']' + '[ORDER]');
+                        $(el).attr('value', selector.find('tr').length);
+                    }
+                });
+                
+                selector.find('tr:last').after(row);
             }
         </script>
         ";
     }
 
-    private static function getAdminFieldHTML($index, $value, $props) {
-        self::dump([$index, $value, $props]);
-        $fieldHtml = '<tr><td>';
+    private static function getAdminFieldHTML($index, $value, $props, $viewProps)
+    {
 
-        $fieldHtml .= '</tr></td>';
+        $fieldValue = '';
+        $fieldValueType = 'input';
+        $orderFieldValue = $index;
+        $valueIsArray = is_array($value);
+
+        if ($valueIsArray) {
+            $fieldValue = $value['VALUE'];
+        }
+
+        if ($valueIsArray && $value['ORDER'] != '') {
+            $orderFieldValue = $value['ORDER'];
+        }
+
+        if (intval($props['ROW_COUNT']) > 1) {
+            $fieldValueType = 'textarea';
+        }
+
+        $fieldHtml = '<tr><td>';
+        $fieldHtml .= '<' . $fieldValueType . ' type="text" size="' . $props['COL_COUNT'] . '" rows="' . $props['ROW_COUNT'] . '" cols="' . $props['COL_COUNT'] . '" name="' . $viewProps['VALUE'] . '[' . $index . '][VALUE]' . '" value="' . $fieldValue . '">' . (($fieldValueType == 'textarea') ? $fieldValue : '') . '</' . $fieldValueType . '>';
+        $fieldHtml .= self::getOrderFieldPrototype($viewProps['VALUE'] . '[' . $index . '][ORDER]', $orderFieldValue, $props);
+        $fieldHtml .= '</td></tr>';
 
         return $fieldHtml;
+    }
+
+    private function getOrderFieldPrototype($name, $value, $params)
+    {
+        //self::dump($params);
+        $orderFieldPrototype = '<input type="hidden" name="' . $name . '" value="' . $value . '"/>';
+        if ($params['USER_TYPE_SETTINGS']['SHOW_ORDER'] == true) {
+            $orderFieldPrototype = '<input type="text" name="' . $name . '" value="' . $value . '" size="10"/>';
+        }
+
+        return $orderFieldPrototype;
     }
 
     /**
