@@ -101,7 +101,7 @@ class CIBlockPropertyWarezgibzzzTzMultiField
          * serialize - slowpoke shit, use json_encode.
          * @see: https://repl.it/DAQP
          */
-        if (strlen($value['VALUE']) > 0) {
+        if (count($value['VALUE']) > 0) {
             $value['VALUE'] = json_encode($value['VALUE']);
         }
 
@@ -174,49 +174,41 @@ class CIBlockPropertyWarezgibzzzTzMultiField
         ';
     }
 
-    public function GetPropertyFieldHtml($arProperty, $value, $strHTMLControlName)
-    {
-        if ($strHTMLControlName['MODE'] === 'FORM_FILL') {
-            echo __METHOD__;
-            self::dump([$arProperty, $value, $strHTMLControlName]);
-        }
-
-
-
-        return '123';
-        // @TODO: implement GetPropertyFieldHtml()
-    }
-
     public function GetAdminListViewHTML($arProperty, $value, $strHTMLControlName)
     {
-        if (is_null($value['VALUE'])) {
-            return '&nbsp;';
-        }
-        if (!is_null($value['VALUE']) && count($value['VALUE']) <= 3) {
-            $textValueArray = new ArrayObject($value['VALUE']);
-        } else {
-            $textValueArray = array(
-                $value['VALUE'][0],
-                $value['VALUE'][1],
-                $value['VALUE'][2],
-            );
+        if (is_null($value['VALUE']) || count($value['VALUE']) < 1) {
+            return 'No fields';
         }
 
-        // Sort by ordering
-        self::sortByCallable(
-            $textValueArray,
-            function ($item) {
-                return $item['ordering'];
+        return count($value['VALUE']) . ' fields';
+    }
+
+    public function GetPropertyFieldHtml($arProperty, $value, $strHTMLControlName)
+    {
+        //self::dump([$arProperty, $value, is_array($value['VALUE']), $strHTMLControlName]);
+
+        /**
+         * JS injection
+         */
+        $html = self::getPropertyFieldJs();
+
+        /** HTML form */
+        $html .= '<table width="100%" id="tbmf'.md5($arProperty['NAME']).'">';
+
+        if (is_array($value['VALUE'])) {
+            foreach ($value['VALUE'] as $index => $item) {
+                self::getAdminFieldHTML($index, $item, $arProperty['USER_TYPE_SETTINGS']);
             }
-        );
-        // Get text from item
-        self::each(
-            $textValueArray,
-            function ($item) {
-                return $item['text'];
+        } else {
+            for ($i = 0; $i < $arProperty['USER_TYPE_SETTINGS']['INITIAL_FIELD_COUNT']; $i++) {
+                self::getAdminFieldHTML($i, '', $arProperty['USER_TYPE_SETTINGS']);
             }
-        );
-        return implode(', ', $textValueArray);
+        }
+
+        $html .= '</table>';
+        $html .= '<input type="button" value="Add new field" onclick="addNewMultifieldRow($(\'#tbmf'.md5($arProperty['NAME']).'\'))"/>';
+
+        return $html;
     }
 
     public function GetPublicViewHTML()
@@ -227,6 +219,32 @@ class CIBlockPropertyWarezgibzzzTzMultiField
     public function GetPublicEditHTML()
     {
         // @TODO: implement GetPublicEditHTML()
+    }
+
+    /**
+     * JS for field
+     *
+     * @return string
+     */
+    private static function getPropertyFieldJs()
+    {
+        return "
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+        <script type='text/javascript'>
+            function addNewMultifieldRow(selector){
+                console.log(selector);
+            }
+        </script>
+        ";
+    }
+
+    private static function getAdminFieldHTML($index, $value, $props) {
+        self::dump([$index, $value, $props]);
+        $fieldHtml = '<tr><td>';
+
+        $fieldHtml .= '</tr></td>';
+
+        return $fieldHtml;
     }
 
     /**

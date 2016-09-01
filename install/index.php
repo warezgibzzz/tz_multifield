@@ -4,6 +4,7 @@ use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ModuleManager;
 use CIBlockPropertyWarezgibzzzTzMultiField;
+use OnSaleOrderUpdate;
 
 Loc::loadMessages(__FILE__);
 
@@ -45,6 +46,7 @@ class Warezgibzzz_Tz_Multifield extends CModule
         if (Loader::includeModule($this->MODULE_ID))
         {
             RegisterModuleDependences('iblock', 'OnIBlockPropertyBuildList', $this->MODULE_ID, 'CIBlockPropertyWarezgibzzzTzMultiField', 'GetUserTypeDescription');
+            RegisterModuleDependences('sale', 'OnOrderUpdate', $this->MODULE_ID, 'OnSaleOrderUpdate', 'checkOrderStatus');
         }
     }
 
@@ -53,6 +55,7 @@ class Warezgibzzz_Tz_Multifield extends CModule
         if (Loader::includeModule($this->MODULE_ID))
         {
             UnRegisterModuleDependences('iblock', 'OnIBlockPropertyBuildList', $this->MODULE_ID, 'CIBlockPropertyWarezgibzzzTzMultiField', 'GetUserTypeDescription');
+            UnRegisterModuleDependences('sale', 'OnOrderUpdate', $this->MODULE_ID, 'OnSaleOrderUpdate', 'checkOrderStatus');
         }
     }
 }
