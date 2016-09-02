@@ -10,8 +10,7 @@ class OnSaleOrderUpdate
 {
     function checkOrderStatus($id, $fields)
     {
-        var_dump([$id, $fields]);
-        self::dump([$id, $fields], true);
+        AddMessage2Log(print_r([$id, $fields], true));
     }
 
     function addBonusMoneyToUserAccount()

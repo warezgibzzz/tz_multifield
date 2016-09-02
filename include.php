@@ -1,3 +1,7 @@
 <?php
-require __DIR__.'/classes/common/prop_warezgibzzz_tz_multifield.php';
-require __DIR__.'/events/common/event_sale_onorderupdate.php';
+if (file_exists('.' . DIRECTORY_SEPARATOR . 'vendor')) {
+    require '.' . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+}
+if (file_exists($_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php')) {
+    require $_SERVER['DOCUMENT_ROOT'] . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+}
