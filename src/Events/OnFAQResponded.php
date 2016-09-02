@@ -27,7 +27,7 @@ class OnFAQResponded
                 'C_FIELDS' => [
                     'EMAIL_TO' => $itemEmail['VALUE'],
                 ],
-                'LID' => ['ru','en']
+                'LID' => 'ru'
             ]);
             if ($res->isSuccess()) {
                 AddMessage2Log('Mail sent');
