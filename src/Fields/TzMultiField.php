@@ -13,7 +13,7 @@ use Bitrix\Main\Localization\Loc;
 Loc::loadMessages(__FILE__);
 
 /**
- * Class CIBlockPropertyWarezgibzzzTzMultiField
+ * Class TzMultiField
  */
 class TzMultiField
 {

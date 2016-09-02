@@ -45,9 +45,9 @@ class Warezgibzzz_Tz_Multifield extends CModule
     {
         if (Loader::includeModule($this->MODULE_ID))
         {
-            RegisterModuleDependences('iblock', 'OnIBlockPropertyBuildList', $this->MODULE_ID, 'CIBlockPropertyWarezgibzzzTzMultiField', 'GetUserTypeDescription');
+            RegisterModuleDependences('iblock', 'OnIBlockPropertyBuildList', $this->MODULE_ID, '\Warezgibzzz\Fields\TzMultiField', 'GetUserTypeDescription');
             $eventManager = \Bitrix\Main\EventManager::getInstance();
-            $eventManager->registerEventHandler('sale', 'OnOrderUpdate', $this->MODULE_ID, 'OnSaleOrderUpdate', 'checkOrderStatus');
+            $eventManager->registerEventHandler('sale', 'OnOrderUpdate', $this->MODULE_ID, '\Warezgibzzz\Events\OnOrderUpdate', 'checkOrderStatus');
 
         }
     }
@@ -56,9 +56,9 @@ class Warezgibzzz_Tz_Multifield extends CModule
     {
         if (Loader::includeModule($this->MODULE_ID))
         {
-            UnRegisterModuleDependences('iblock', 'OnIBlockPropertyBuildList', $this->MODULE_ID, 'CIBlockPropertyWarezgibzzzTzMultiField', 'GetUserTypeDescription');
+            UnRegisterModuleDependences('iblock', 'OnIBlockPropertyBuildList', $this->MODULE_ID, '\Warezgibzzz\Fields\TzMultiField', 'GetUserTypeDescription');
             $eventManager = \Bitrix\Main\EventManager::getInstance();
-            $eventManager->unRegisterEventHandler('sale', 'OnOrderUpdate', $this->MODULE_ID, 'OnSaleOrderUpdate', 'checkOrderStatus');
+            $eventManager->unRegisterEventHandler('sale', 'OnOrderUpdate', $this->MODULE_ID, '\Warezgibzzz\Events\OnOrderUpdate', 'checkOrderStatus');
         }
     }
 }
