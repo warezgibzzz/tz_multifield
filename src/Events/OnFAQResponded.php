@@ -21,11 +21,15 @@ class OnFAQResponded
         $itemEmail = \CIBlockElement::GetProperty($item['IBLOCK_ID'], $item['ID'], array("sort" => "asc"), array("CODE" => "EMAIL"))->Fetch();
         AddMessage2Log(print_r([$item, $itemEmail], true));
         if (strlen($item['DETAIL_TEXT']) > 0 && $item['IBLOCK_ID'] == 4) {
-            $res = MailEvent::SendImmediate('FAQ_REPLIED', 'ru,en', [
-                    'EMAIL_TO' => $itemEmail['VALUE']
+            $res = MailEvent::send([
+                'EVENT_NAME' => 'FAQ_REPLIED',
+                'MESSAGE_ID' => 75,
+                'C_FIELDS' => [
+                    'EMAIL_TO' => $itemEmail['VALUE'],
+                    'MESSAGE_ID' => 75
                 ],
-                'N',
-                75
+                'DUPLICATE' => 'N',
+                'LID' => 'ru'
             ]);
             if ($res->isSuccess()) {
                 AddMessage2Log('Mail sent');
