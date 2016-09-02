@@ -26,7 +26,9 @@ class OnFAQResponded
 
                 'C_FIELDS' => [
                     'EMAIL_TO' => $itemEmail['VALUE'],
+                    'MESSAGE_ID' => 75
                 ],
+                'DUPLICATE' => 'N',
                 'LID' => 'ru'
             ]);
             if ($res->isSuccess()) {
