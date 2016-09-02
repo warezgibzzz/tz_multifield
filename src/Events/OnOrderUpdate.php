@@ -11,7 +11,7 @@ namespace Warezgibzzz\Events;
 
 class OnOrderUpdate
 {
-    function checkOrderStatus($id, $params) {
-        AddMessage2Log(print_r([$id, $params], true));
+    function checkOrderStatus($params) {
+        AddMessage2Log(print_r($params, true));l
     }
 }

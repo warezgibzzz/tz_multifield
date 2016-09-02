@@ -3,8 +3,6 @@
 use Bitrix\Main\Loader;
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main\ModuleManager;
-use CIBlockPropertyWarezgibzzzTzMultiField;
-use OnSaleOrderUpdate;
 
 Loc::loadMessages(__FILE__);
 
@@ -47,8 +45,8 @@ class Warezgibzzz_Tz_Multifield extends CModule
         {
             RegisterModuleDependences('iblock', 'OnIBlockPropertyBuildList', $this->MODULE_ID, '\Warezgibzzz\Fields\TzMultiField', 'GetUserTypeDescription');
             $eventManager = \Bitrix\Main\EventManager::getInstance();
-            $eventManager->registerEventHandler('sale', 'OnOrderUpdate', $this->MODULE_ID, '\Warezgibzzz\Events\OnOrderUpdate', 'checkOrderStatus');
-
+            $eventManager->registerEventHandler('sale', 'OnSaleStatusOrderChange', $this->MODULE_ID, '\Warezgibzzz\Events\OnOrderUpdate', 'checkOrderStatus');
+            print_r('Registered module: ' . $this->MODULE_ID, true);
         }
     }
 
@@ -58,7 +56,8 @@ class Warezgibzzz_Tz_Multifield extends CModule
         {
             UnRegisterModuleDependences('iblock', 'OnIBlockPropertyBuildList', $this->MODULE_ID, '\Warezgibzzz\Fields\TzMultiField', 'GetUserTypeDescription');
             $eventManager = \Bitrix\Main\EventManager::getInstance();
-            $eventManager->unRegisterEventHandler('sale', 'OnOrderUpdate', $this->MODULE_ID, '\Warezgibzzz\Events\OnOrderUpdate', 'checkOrderStatus');
+            $eventManager->unRegisterEventHandler('sale', 'OnSaleStatusOrderChange', $this->MODULE_ID, '\Warezgibzzz\Events\OnOrderUpdate', 'checkOrderStatus');
+            print_r('Unregistered module: ' . $this->MODULE_ID, true);
         }
     }
 }
