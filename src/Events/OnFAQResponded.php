@@ -27,10 +27,11 @@ class OnFAQResponded
                 'C_FIELDS' => [
                     'EMAIL_TO' => $itemEmail['VALUE'],
                 ],
-                'LID' => is_array(SITE_ID) ? implode(",", SITE_ID) : SITE_ID
+                'LID' => ['ru','en']
             ]);
             if ($res->isSuccess()) {
                 AddMessage2Log('Mail sent');
+                AddMessage2Log(print_r($res->getData(), true));
             } else {
                 AddMessage2Log(print_r($res->getErrors(), true));
             }
